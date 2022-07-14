@@ -1,22 +1,12 @@
 const express =  require('express')
 const app = express()
 const { usersData } = require('./Users.js')
+const user =  require('./router/user.js')
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-
-app.get('/api/getallusers', (req, res) => {
-    // res.end('Welcome to the home page');
-    console.log(usersData);
-    res.json(usersData);
-});
-
-
-app.get('/api/getuser/:id', (req, res) => {
-    const id  =  req.params.id;
-    console.log(id);
-    const user = usersData.find((user) => user.id == id);
-    res.json(user);
-});
+app.use('/api/users', user)
 
 
 app.listen(3000,() => {
